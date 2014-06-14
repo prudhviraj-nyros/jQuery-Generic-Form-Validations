@@ -1,7 +1,7 @@
 
-/* ************************************************ jquery form validations ****************************************************** */
-
-function formValidation()   //onsubmit function
+/* ***************************************************** jquery form validations ******************************************** */
+/* ***************************************************** On Submit Function ******************************************** */
+function formValidation()
 {
 
    inputs=$(":input");
@@ -10,25 +10,38 @@ function formValidation()   //onsubmit function
    	$(inputs[i]).blur();// Triggering all the on functions
    }
 
-   if($("[class*='alert1']").length||$("[class*='alert2']").length) //checking for alert messages
+   if($("[class*='alert1']").length||$("[class*='alert2']").length)  //checking for alert messages
    {
-   	alert("Please follow the 'blue' instructions to fill up the form properly,thank you");
-   return false;
+   		alert("Please follow the instructions to fill up the form properly,thank you");
+   		alertMessages=$("[class*='alert']");
+   		for(var i=0;i<alertMessages.length;i++)
+   		{
+   			if($(alertMessages[i]).attr("class").search("alert1")!== -1)
+   			{ 		
+   				wrongField=$(alertMessages[i]).attr("class").split('alert1').pop();
+   				$("[name='"+wrongField+"']").focus();
+   				return false;
+   			}
+   			else if($(alertMessages[i]).attr("class").search("alert2")!== -1)
+   			{
+   				wrongField=$(alertMessages[i]).attr("class").split('alert2').pop();
+   				$("[name='"+wrongField+"']").focus();
+   				return false;
+   			}
+   		}
    }
    else
    {
-   	alert("Congrats! you have successfully registered");
-   	return true;
-   } 
+   		alert("Congrats! you have successfully registered");
+    	return true;
+   }
 }
-
-
-/* ********************************************************************************************************************************** */
-
-
+			/***************************************************************************************** */
+			
+		/************************************** Text input Validations ********************************************* */
 function FieldValidation(obj,type,min,max) // Text input Validations
 {
-	if($(obj).val()==""||$(obj).val()==null)  // checking whether the input field is empty or not
+	if($(obj).val()==""||$(obj).val()==null) // checking if the input field is empty or not
 	{
 		if($(".alert1"+$(obj).attr("name")+"").length)
 		{
@@ -51,12 +64,11 @@ function FieldValidation(obj,type,min,max) // Text input Validations
 		if($(".alert1"+$(obj).attr("name")+"").length)
 		{
 			$(".alert1"+$(obj).attr("name")+"").remove();
-			return false;
 		}
 	}
 
 
-	var regularExpression=$(obj).attr("pattern"); // checking whether the attribute pattern is present or not
+	var regularExpression=$(obj).attr("pattern"); // checking whether the pattren attribute is present or not
         	
 		if((regularExpression=="")||(regularExpression==null))
     	    {
@@ -90,7 +102,7 @@ function FieldValidation(obj,type,min,max) // Text input Validations
 
                 if(max!==null||min!==null)
                 {
-    			regularExpression = new RegExp("^"+format+".{" + min + "," + max + "}$");//making customized regular expression
+    			regularExpression = new RegExp("^"+format+"{" + min + "," + max + "}$"); // making a customized regular expression
     			msg="* "+$(obj).attr("name")+"'s length must be between " + min + " and " + max + " and " + type;
                 }
                 else 
@@ -127,16 +139,15 @@ function FieldValidation(obj,type,min,max) // Text input Validations
 			else if($(".alert2"+$(obj).attr("name")+"").length)
 			{
 				$(".alert2"+$(obj).attr("name")+"").remove();
-				return false;
 			}
 		}
 	}
 } 
 		
-
-function SelectFieldValidation(obj)  // Select field validations
+       			/***************************************************************************************** */
+function SelectFieldValidation(obj)// Select field validations
 {
-	if($(obj).val()==""||$(obj).val()==null)  //whether the select field is empty or not
+	if($(obj).val()==""||$(obj).val()==null)
 	{
 		if($(".alert1"+$(obj).attr("name")+"").length)
 		{
@@ -158,13 +169,16 @@ function SelectFieldValidation(obj)  // Select field validations
 
 	}
 } 
-		
-	/* *********************************************************************************************** */
-function CheckBoxValidation(obj)	// Check Box Validations
+		/***************************************************************************************** */
+
+	/************************************************ Check Box Validations ****************************************************** */
+
+
+function CheckBoxValidation(obj)// Check Box Validations
 {
 	checkBoxName=$(obj).attr("name");
 	IsCheckBox = 0;
-	if($("[name='"+checkBoxName+"']:checked").length) // whether any check boxes of same name are checked 
+	if($("[name='"+checkBoxName+"']:checked").length) //checking whether any checkboxes of same name are checked or not
 	{
 		IsCheckBox++;
 	}
@@ -191,4 +205,4 @@ function CheckBoxValidation(obj)	// Check Box Validations
 	}
 
 }
-									/* *********************************************************************************************** */
+			/* *********************************************************************************************** */
