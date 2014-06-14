@@ -1,7 +1,7 @@
 
-// jquery form validations
+/* ************************************************ jquery form validations ****************************************************** */
 
-function formValidation()
+function formValidation()   //onsubmit function
 {
 
    inputs=$(":input");
@@ -10,7 +10,7 @@ function formValidation()
    	$(inputs[i]).blur();// Triggering all the on functions
    }
 
-   if($("[class*='alert1']").length||$("[class*='alert2']").length)
+   if($("[class*='alert1']").length||$("[class*='alert2']").length) //checking for alert messages
    {
    	alert("Please follow the 'blue' instructions to fill up the form properly,thank you");
    return false;
@@ -23,9 +23,12 @@ function formValidation()
 }
 
 
+/* ********************************************************************************************************************************** */
+
+
 function FieldValidation(obj,type,min,max) // Text input Validations
 {
-	if($(obj).val()==""||$(obj).val()==null)
+	if($(obj).val()==""||$(obj).val()==null)  // checking whether the input field is empty or not
 	{
 		if($(".alert1"+$(obj).attr("name")+"").length)
 		{
@@ -53,7 +56,7 @@ function FieldValidation(obj,type,min,max) // Text input Validations
 	}
 
 
-	var regularExpression=$(obj).attr("pattern");
+	var regularExpression=$(obj).attr("pattern"); // checking whether the attribute pattern is present or not
         	
 		if((regularExpression=="")||(regularExpression==null))
     	    {
@@ -87,7 +90,7 @@ function FieldValidation(obj,type,min,max) // Text input Validations
 
                 if(max!==null||min!==null)
                 {
-    			regularExpression = new RegExp("^"+format+".{" + min + "," + max + "}$");
+    			regularExpression = new RegExp("^"+format+".{" + min + "," + max + "}$");//making customized regular expression
     			msg="* "+$(obj).attr("name")+"'s length must be between " + min + " and " + max + " and " + type;
                 }
                 else 
@@ -131,9 +134,9 @@ function FieldValidation(obj,type,min,max) // Text input Validations
 } 
 		
 
-function SelectFieldValidation(obj)// Select field validations
+function SelectFieldValidation(obj)  // Select field validations
 {
-	if($(obj).val()==""||$(obj).val()==null)
+	if($(obj).val()==""||$(obj).val()==null)  //whether the select field is empty or not
 	{
 		if($(".alert1"+$(obj).attr("name")+"").length)
 		{
@@ -156,12 +159,12 @@ function SelectFieldValidation(obj)// Select field validations
 	}
 } 
 		
-
-function CheckBoxValidation(obj)// Check Box Validations
+	/* *********************************************************************************************** */
+function CheckBoxValidation(obj)	// Check Box Validations
 {
 	checkBoxName=$(obj).attr("name");
 	IsCheckBox = 0;
-	if($("[name='"+checkBoxName+"']:checked").length)
+	if($("[name='"+checkBoxName+"']:checked").length) // whether any check boxes of same name are checked 
 	{
 		IsCheckBox++;
 	}
